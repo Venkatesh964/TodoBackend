@@ -12,7 +12,6 @@ const todoSchema=zod.object({
     completed:zod.boolean()
 });
 
-
 const updateSchema=zod.object({
     description:zod.string().optional(),
     completed:zod.boolean().optional(),
@@ -64,6 +63,9 @@ router.get("/",authMiddleware,async (req,res)=>{
 router.put("/",authMiddleware,async (req,res)=>{
     try{
         const {success}=updateSchema.safeParse(req.body);
+        if(!success){
+            return res.status(411).json({msg:"invalid inputs"});
+        }
         const updateUser = await prisma.todo.update({
             where: {
               title: req.body.title,
