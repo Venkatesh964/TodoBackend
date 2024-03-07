@@ -21,7 +21,7 @@ const middleware_1 = __importDefault(require("../middleware"));
 const todoSchema = zod_1.default.object({
     title: zod_1.default.string(),
     description: zod_1.default.string(),
-    completed: zod_1.default.boolean()
+    completed: zod_1.default.boolean().optional()
 });
 const updateSchema = zod_1.default.object({
     description: zod_1.default.string().optional(),
@@ -68,6 +68,10 @@ router.get("/", middleware_1.default, (req, res) => __awaiter(void 0, void 0, vo
 router.put("/", middleware_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { success } = updateSchema.safeParse(req.body);
+        console.log("working");
+        if (!success) {
+            return res.status(411).json({ msg: "invalid inputs" });
+        }
         const updateUser = yield prisma.todo.update({
             where: {
                 title: req.body.title,

@@ -41,12 +41,12 @@ router.post("/signup", (req, res) => __awaiter(void 0, void 0, void 0, function*
         const token = jsonwebtoken_1.default.sign({
             id: user.id
         }, config_1.default);
-        return res.json({
+        return res.status(200).json({
             token
         });
     }
     catch (err) {
-        return res.json({
+        return res.status(403).json({
             err
         });
     }
@@ -65,7 +65,7 @@ router.post("/signin", (req, res) => __awaiter(void 0, void 0, void 0, function*
             });
         }
         const token = jsonwebtoken_1.default.sign({ id: user1.id }, config_1.default);
-        return res.status(403).json({
+        return res.status(200).json({
             token
         });
     }

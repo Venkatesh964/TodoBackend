@@ -9,7 +9,7 @@ import authMiddleware from "../middleware";
 const todoSchema=zod.object({
     title:zod.string(),
     description:zod.string(),
-    completed:zod.boolean()
+    completed:zod.boolean().optional()
 });
 
 const updateSchema=zod.object({
@@ -63,6 +63,7 @@ router.get("/",authMiddleware,async (req,res)=>{
 router.put("/",authMiddleware,async (req,res)=>{
     try{
         const {success}=updateSchema.safeParse(req.body);
+        console.log("working");
         if(!success){
             return res.status(411).json({msg:"invalid inputs"});
         }

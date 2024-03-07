@@ -29,12 +29,12 @@ router.post("/signup",async (req,res)=>{
         const token=jwt.sign({
             id:user.id
         },JWT_SECRET);
-        return res.json({
+        return res.status(200).json({
             token
         });
     }
     catch(err){
-        return res.json({
+        return res.status(403).json({
             err
         })
     }
@@ -56,7 +56,7 @@ router.post("/signin",async (req,res)=>{
           }
           
           const token=jwt.sign({id:user1.id},JWT_SECRET);
-          return res.status(403).json({
+          return res.status(200).json({
             token
           });
     }

@@ -8,7 +8,6 @@ const config_1 = __importDefault(require("./config"));
 function authMiddleware(req, res, next) {
     try {
         const header = req.headers["authorization"];
-        //console.log(header);
         const token = header.split(" ")[1];
         if (!token) {
             req.json({
@@ -17,9 +16,11 @@ function authMiddleware(req, res, next) {
         }
         const decode = jsonwebtoken_1.default.verify(token, config_1.default);
         req.body.id = decode.id;
+        console.log("eorking");
         next();
     }
     catch (err) {
+        console.log(err);
         return res.json({
             err
         });

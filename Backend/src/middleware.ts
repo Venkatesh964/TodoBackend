@@ -13,11 +13,13 @@ function authMiddleware(req:any,res:any,next:any){
     const decode:any=jwt.verify(token,JWT_SECRET);
 
     req.body.id=decode.id;
+    console.log("eorking");
     
     next();
     
     }
     catch(err){
+        console.log(err);
         return res.json({
             err
         })
