@@ -48,7 +48,12 @@ router.post("/",authMiddleware,async (req,res)=>{
 router.get("/",authMiddleware,async (req,res)=>{
     try{
         console.log("not working");
-        const response=await prisma.todo.findMany();
+        const response=await prisma.todo.findMany({
+            where:{
+                userId:req.body.id
+            }
+        })
+        //const response=await prisma.todo.findMany();
         return res.status(200).json({
             todos:response
         });

@@ -54,7 +54,12 @@ router.post("/", middleware_1.default, (req, res) => __awaiter(void 0, void 0, v
 router.get("/", middleware_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         console.log("not working");
-        const response = yield prisma.todo.findMany();
+        const response = yield prisma.todo.findMany({
+            where: {
+                userId: req.body.id
+            }
+        });
+        //const response=await prisma.todo.findMany();
         return res.status(200).json({
             todos: response
         });
